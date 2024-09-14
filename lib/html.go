@@ -6,6 +6,7 @@ import (
 	"os"
 	"path/filepath"
 	"strings"
+	"time"
 
 	"github.com/gosimple/slug"
 	"github.com/russross/blackfriday"
@@ -159,11 +160,12 @@ func createTemplate(dir, name string) (*template.Template, error) {
 }
 
 var templateFuncs = template.FuncMap{
-	"html":    html,
-	"summary": summary,
-	"even":    even,
-	"inc":     inc,
-	"slug":    slugify,
+	"html":       html,
+	"summary":    summary,
+	"even":       even,
+	"inc":        inc,
+	"slug":       slugify,
+	"formatDate": formatDate,
 }
 
 func html(markdown string) template.HTML {
@@ -191,4 +193,8 @@ func inc(integer int) int {
 
 func slugify(str string) string {
 	return slug.Make(str)
+}
+
+func formatDate(t time.Time) string {
+	return t.Format("02 Jan, 2006")
 }
