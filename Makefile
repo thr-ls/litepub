@@ -16,6 +16,7 @@ VERSION = $(shell git describe --tags --abbrev=0)
 
 build: clean
 	@go build
+	@mv litepub $(GOPATH)/bin
 
 install: clean
 	@go install

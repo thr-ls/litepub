@@ -68,6 +68,7 @@ type Post struct {
 	Written time.Time
 	Tags    []string
 	Draft   bool
+	IsPage  bool
 }
 
 func sortByDate(blog Blog, asc bool) {

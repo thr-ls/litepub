@@ -38,6 +38,8 @@ const (
 //
 //	*tag1, tag2, ...*
 //
+//	*page*
+//
 //	Content
 type MarkdownBlog struct {
 	dir string
@@ -136,12 +138,19 @@ func markdownToPost(markdown string) (Post, error) {
 		}
 	}
 
+	var isPage bool
+	if strings.HasPrefix(paras[3], "*") && strings.Contains(paras[3], "page") {
+		isPage = true
+	}
+
 	var content string
-	if len(tags) == 0 {
+	if len(tags) == 0 && !isPage {
 		content = strings.Join(paras[2:], "\n\n")
+	} else if isPage {
+		content = strings.Join(paras[4:], "\n\n")
 	} else {
 		content = strings.Join(paras[3:], "\n\n")
 	}
 
-	return Post{title, content, written, tags, false}, nil
+	return Post{title, content, written, tags, false, isPage}, nil
 }

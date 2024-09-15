@@ -19,3 +19,16 @@ func TestMarkdownToPostWithCRLF(t *testing.T) {
 		t.Fatal(err)
 	}
 }
+
+func TestMarkdownToPostWithPage(t *testing.T) {
+	lf := "# A title\n\n*Aug 10, 2021*\n\n*Test, Markdown*\n\n*page*\n\nTesting LF\n"
+
+	post, err := markdownToPost(lf)
+	if err != nil {
+		t.Fatal(err)
+	}
+
+	if !post.IsPage {
+		t.Errorf("want %v, got %v", true, post.IsPage)
+	}
+}
