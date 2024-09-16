@@ -166,6 +166,7 @@ var templateFuncs = template.FuncMap{
 	"inc":        inc,
 	"slug":       slugify,
 	"formatDate": formatDate,
+	"formatYear": formatYear,
 }
 
 func html(markdown string) template.HTML {
@@ -197,4 +198,9 @@ func slugify(str string) string {
 
 func formatDate(t time.Time) string {
 	return t.Format("02 Jan, 2006")
+}
+
+// formatYear extracts the year from a time.Time object
+func formatYear(t time.Time) string {
+	return t.Format("2006") // "2006" is the Go time layout for year
 }
